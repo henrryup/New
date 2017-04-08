@@ -1,0 +1,149 @@
+
+<!doctype html>
+<html>
+<literal>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="{__PUBLIC__}Admin/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="{__PUBLIC__}Admin/css/main.css"/>
+    <script type="text/javascript" src="{__PUBLIC__}Admin/js/libs/modernizr.min.js"></script>
+    <script type="text/javascript" src="{__PUBLIC__}Admin/js/jquery.js"></script>
+    <script type="text/javascript" src="../../../web/home/js/jquery1.42.min.js"></script>
+    {literal}
+    <script >
+
+        $(function(){
+            //当页面dom加载完毕，要执行的代码
+            $('.fanxuan').click(function(){
+                $("input[type='checkbox']").prop("checked",function(i,val){
+                    return !val;
+                });
+            });
+
+            $('.quanxuan').click(function(){
+                $("input[type='checkbox']").prop("checked",function(i,val){
+                    return true;
+                });
+            });
+
+            $('.quxiao').click(function(){
+                $("input[type='checkbox']").prop("checked",function(i,val){
+                    return false;
+                });
+            });
+
+
+            $('#batchDel').click(function(){
+                $('#myform').submit();
+            });
+        });
+        $(function(){
+            $("#nowtime").css({color:'red'});
+            window.setInterval('ShowTime()',1000);
+        });
+        function ShowTime(){
+            var t = new Date();
+            var str = t.getFullYear() + '年';
+            str += t.getMonth() + '月';
+            str += t.getDate() + '日 ';
+            str += t.getHours() + ':';
+            str += t.getMinutes() + ':';
+            str += t.getSeconds() + '';
+            $("#nowtime").html(str);
+        }
+    </script>
+    {/literal}
+    </head>
+    <body>
+
+
+    {include file='../Public/header.html'}
+
+    <div class="container clearfix">
+
+        <!--左侧菜单栏-->
+
+        {include file='../Public/left.html'}
+
+        <!--右侧主操作区-->
+        <div class="main-wrap">
+            <!--首页>分类管理-->
+            <div class="crumb-wrap">
+                <div class="crumb-list"><i class="icon-font"></i>
+                    <a href="?m=Admin">首页</a>
+                    <span class="crumb-step">&gt;</span>
+                    <span class="crumb-name">分类管理</span>
+                </div>
+            </div>
+            <div class="search-wrap">
+                <div class="search-content">
+
+                    <form action="" method="post">
+                        <table class="search-tab">
+                            <tr>
+                                <th width="70">关键字:</th>
+                                <td><input class="common-text" placeholder="关键字" name="keywords" value="" id="" type="text"></td>
+                                <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
+                            </tr>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+            <div class="result-wrap">
+
+                <div class="result-title">
+                    <div class="result-list">
+                        <a href="?m=Admin&c=Article&a=add&categoryid={$smarty.get.categoryid}"><i class="icon-font"></i>添加文章</a>
+                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
+                        <span style="cursor: pointer" class="quanxuan">全选</span>
+                        <span style="cursor: pointer" class="quxiao">取消</span>
+                        <span style="cursor: pointer" class="fanxuan">反选</span>
+                    </div>
+                </div>
+                <div class="result-content">
+                    <form name="myform" id="myform" method="post" action="?m=Admin&c=Article&a=delAll">
+                        <table class="result-tab" width="100%">
+                            <tr>
+                                <th class="tc" width="5%">
+                                    <!--<span style="cursor: pointer" class="allChoose">全选</span>-->
+                                </th>
+                                <th>ID</th>
+                                <th>标题</th>
+                                <th>所属分类</th>
+                                <th>作者</th>
+                                <th>发布时间</th>
+                                <th>点击数</th>
+                                <th>操作</th>
+                            </tr>
+                            {foreach $data as $val}
+                            <tr>
+                                <td class="tc">
+                                    <input name="id[]" value="{$val.articleid}" type="checkbox">
+                                </td>
+                                <td >{$val.articleid}</td>
+                                <td >{$val.title}</td>
+                                <td>{$val.name}</td>
+                                <td>{$val.author}</td>
+                                <td>{$val.ptime}</td>
+                                <td>{$val.hits}</td>
+                                <td>
+                                    <a class="link-update" href="?p=back&c=Blog&a=Edit&id=3">修改</a>
+                                    <a class="link-del" href="?m=Admin&c=Article&a=del&articleid={$val.articleid}&categoryid={$smarty.get.categoryid}">删除</a>
+                                </td>
+                            </tr>
+                            {/foreach}
+                        </table>
+                        <input type="hidden" name="categoryid" value="{$smarty.get.categoryid}">
+                    </form>
+                    <div class="list-page"> {$show}</div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--/右侧主操作区-->
+    </div>
+
+    </body>
+</html>

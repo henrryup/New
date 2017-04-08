@@ -1,0 +1,43 @@
+<style>
+    #topnav span{
+        float: right;
+        color:whitesmoke;
+        padding: 0 15px;
+        text-align: center;
+        background-color: darkturquoise;
+        margin-left: 10px;
+    }
+</style>
+<script>
+    window.onload = function () {
+        //注册
+        document.getElementById('reg').onclick = function () {
+            location.href = 'index.php?c=Login&a=register';
+        }
+        //登录
+        document.getElementById('log').onclick = function () {
+            location.href = 'index.php?c=Login&a=log';
+        }
+        //退出
+        document.getElementById('logout').onclick = function (){
+            location.href = 'index.php?c=Login&a=logout';
+        }
+    }
+</script>
+<header>
+    <h1>如影随形</h1>
+    <h2>影子是一个会撒谎的精灵，它在虚空中流浪和等待被发现之间;在存在与不存在之间....</h2>
+    <div class="logo"><a href="/"></a></div>
+    <nav id="topnav">
+        <a href="/">首页</a>
+        <a href="index.php?c=About&categoryid=1">关于我</a>
+        <a href="index.php?c=List&categoryid=2&type=da">慢生活</a>
+        <a href="index.php?c=List&categoryid=3&type=da">学无止境</a>
+
+        <span href=""  id = "logout" {if isset($smarty.session.uname)}style="display:block"{else}style="display:none"{/if}>退出</span>
+        <span href=""  id = "uname" {if isset($smarty.session.uname)}style="display:block"{else}style="display:none"{/if}>{$smarty.session.uname}</span>
+
+        <span href=""  id = "reg" {if isset($smarty.session.uname)}style="display:none"{else}style="display:block"{/if}>注册</span>
+        <span href=""  id = "log" {if isset($smarty.session.uname)}style="display:none"{else}style="display:block"{/if}>登录</span>
+    </nav>
+</header>

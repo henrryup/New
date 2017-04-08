@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="{__PUBLIC__}Admin/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="{__PUBLIC__}Admin/css/main.css"/>
+    <script type="text/javascript" src="{__PUBLIC__}Admin/js/libs/modernizr.min.js"></script>
+    <script type="text/javascript" src="../../../web/home/js/jquery1.42.min.js"></script>
+    {literal}
+    <script >
+        $(function(){
+            $("#nowtime").css({color:'red'});
+            window.setInterval('ShowTime()',1000);
+        });
+        function ShowTime(){
+            var t = new Date();
+            var str = t.getFullYear() + '年';
+            str += t.getMonth() + '月';
+            str += t.getDate() + '日 ';
+            str += t.getHours() + ':';
+            str += t.getMinutes() + ':';
+            str += t.getSeconds() + '';
+            $("#nowtime").html(str);
+        }
+    </script>
+    {/literal}
+</head>
+<body>
+
+
+{include file='../Public/header.html'}
+<div class="container clearfix">
+    
+    <!--左侧菜单栏-->
+
+    {include file='../Public/left.html'}
+    
+    <!--右侧主操作区-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list"><i class="icon-font"></i>
+                <a href="?m=Admin">首页</a>
+                <span class="crumb-step">&gt;</span>
+                <span class="crumb-name">分类管理</span>
+                <span class="crumb-step">&gt;</span>
+                <span class="crumb-name">修改分类名</span>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                <form action="?m=Admin&c=Category&a=upHandle" method="post" id="myform" >
+                    <table class="insert-tab" width="100%">
+                        <tbody>
+                            <tr>
+                                <th><i class="require-red">*</i>父类名称：</th>
+                                <td>
+                                    <select name="parent_id">
+                                        <option value="0">--顶级类别--</option>
+                                        {foreach $data as $val}
+                                        <option {if $val.categoryid == $parent.categoryid}selected="selected" {/if} style="padding-left:{$val.lev*20}px" value="{$val.categoryid}">{$val.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><i class="require-red">*</i>分类名称：</th>
+                                <td>
+                                    <input class="common-text required" id="title" name="category_name" size="50" value="{$name}" type="text">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <input  type="hidden" name="id" value="{$smarty.get.id}">
+                                    <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+                                    <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+    <!--/右侧主操作区-->
+</div>
+
+</body>
+</html>

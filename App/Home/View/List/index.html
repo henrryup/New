@@ -1,0 +1,133 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>黑色Html5响应式个人博客模板——主题《如影随形》</title>
+<meta name="keywords" content="个人博客模板,博客模板,响应式" />
+<meta name="description" content="如影随形主题的个人博客模板，神秘、俏皮。" />
+<link href="{__PUBLIC__}Home/css/base.css" rel="stylesheet">
+<link href="{__PUBLIC__}Home/css/style.css" rel="stylesheet">
+<link href="{__PUBLIC__}Home/css/media.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<!--[if lt IE 9]>
+<script src="{__PUBLIC__}Home/js/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="ibody">
+  {include file='../Public/header.html'}
+  <article>
+    <h2 class="about_h">您现在的位置是：<a href="/">{$name.name}</a></h2>
+    <div class="bloglist">
+{foreach $data as $val}
+      <div class="newblog">
+        <ul>
+          <h3><a href="index.php?c=Article&categoryid={$name.categoryid}&type=xiao&articleid={$val.articleid}">{$val.title}</a></h3>
+          <div class="autor"><span>作者：{$val.author}</span>
+            <span>分类：[<a href="?c=List&categoryid={$val.categoryid}&titleid={$name.categoryid}&type=xiao">{$val.name}</a>]</span>
+            <span>浏览（<a href="/">{$val.hits}</a>）</span>
+            <span>评论（<a href="/">30</a>）</span>
+          </div>
+          <p>
+            {$val.description}
+          </p>
+        </ul>
+        <figure><img src="{$val.pic}" style="max-height: 180px;max-width: 210px;" ></figure>
+        <div class="dateview">{$val.ptime}</div>
+      </div>
+  {/foreach}
+    </div>
+    <div class="page">
+        {$show}
+    </div>
+  </article>
+  <aside>
+    <div class="rnav">
+      <li class="rnav1 "><a href="/">{$smalltitle.0.name}</a></li>
+      <li class="rnav2 "><a href="/">{$smalltitle.1.name}</a></li>
+      <li class="rnav3 "><a href="/">{$smalltitle.2.name}</a></li>
+      <li class="rnav4 "><a href="/">{$smalltitle.3.name}</a></li>
+    </div>
+    <div class="ph_news">
+      <h2>
+        <p>点击排行</p>
+      </h2>
+      <ul class="ph_n">
+        {foreach $hits as $val}
+        <li><span class="num1">1</span><a href="/">{$val.title}</a></li>
+       {/foreach}
+      </ul>
+      <h2>
+        <p>栏目推荐</p>
+      </h2>
+      <ul>
+        {foreach $new as $res}
+        <li><a href="/">{$res.title}</a></li>
+       {/foreach}
+      </ul>
+      <h2>
+        <p>最新评论</p>
+      </h2>
+      <ul class="pl_n">
+        <dl>
+          <dt><img src="{__PUBLIC__}Home/images/s8.jpg"> </dt>
+          <dt> </dt>
+          <dd>DanceSmile
+            <time>49分钟前</time>
+          </dd>
+          <dd><a href="/">文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</a></dd>
+        </dl>
+        <dl>
+          <dt><img src="{__PUBLIC__}Home/images/s7.jpg"> </dt>
+          <dt> </dt>
+          <dd>yisa
+            <time>2小时前</time>
+          </dd>
+          <dd><a href="/">我手机里面也有这样一个号码存在</a></dd>
+        </dl>
+        <dl>
+          <dt><img src="{__PUBLIC__}Home/images/s6.jpg"> </dt>
+          <dt> </dt>
+          <dd>小林博客
+            <time>8月7日</time>
+          </dd>
+          <dd><a href="/">博客色彩丰富，很是好看</a></dd>
+        </dl>
+        <dl>
+          <dt><img src="{__PUBLIC__}Home/images/003.jpg"> </dt>
+          <dt> </dt>
+          <dd>DanceSmile
+            <time>49分钟前</time>
+          </dd>
+          <dd><a href="/">文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</a></dd>
+        </dl>
+        <dl>
+          <dt><img src="{__PUBLIC__}Home/images/002.jpg"> </dt>
+          <dt> </dt>
+          <dd>yisa
+            <time>2小时前</time>
+          </dd>
+          <dd><a href="/">我手机里面也有这样一个号码存在</a></dd>
+        </dl>
+      </ul>
+      <h2>
+        <p>最近访客</p>
+        <ul>
+          <img src="{__PUBLIC__}Home/images/vis.jpg"><!-- 直接使用“多说”插件的调用代码 -->
+        </ul>
+      </h2>
+    </div>
+    <div class="copyright">
+      <ul>
+        <p> Design by <a href="/">DanceSmile</a></p>
+        <p>蜀ICP备11002373号-1</p>
+        </p>
+      </ul>
+    </div>
+  </aside>
+  <!--右侧边栏-->
+
+  <!-- 清除浮动 --> 
+</div>
+</body>
+</html>

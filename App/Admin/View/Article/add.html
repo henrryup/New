@@ -1,0 +1,169 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="{__PUBLIC__}Admin/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="{__PUBLIC__}Admin/css/main.css"/>
+    <script type="text/javascript" src="{__PUBLIC__}Admin/js/libs/modernizr.min.js"></script>
+    <script type="text/javascript" src="{__PUBLIC__}Admin/js/jquery.js"></script>
+    <!--加载日历控件-->
+    <script type="text/javascript" src="{__PUBLIC__}Plugins/laydate/laydate.js"></script>
+    <script type="text/javascript" src="{__PUBLIC__}Plugins/ckeditor/ckeditor.js"></script>
+    <script>
+        window.onload = function(){
+            //页面加载完毕要执行的函数
+            var ptime=document.getElementById('ptime');
+            //获取今天的时间
+            var d=new Date();
+            var year = d.getFullYear();//获取四位数的年
+            var month = d.getMonth();//获取月份，值是0~11，顒要+1
+            month = month+1;
+            month = month<10 ? '0'+month :month ;//处理小于十的月份，变为加0的月份
+            var day = d.getDate();//获取天
+            day = day<10 ? '0'+day : day;
+            var str = year + '-' + month + '-' + day;
+            ptime.value = str;
+
+            //处理点击量(随机数 50-1000)
+            //Math.random();//0-1的数
+            var hits = (500-0)*Math.random()+10;
+            hits=Math.round(hits);
+            document.getElementById('hits').value = hits;
+        }
+    </script>
+</head>
+<body>
+
+
+{include file='../Public/header.html'}
+
+<div class="container clearfix">
+    
+    <!--左侧菜单栏-->
+
+    <div class="crumb-wrap">
+        <div class="crumb-list"><i class="icon-font"></i>
+            <a href="?m=Admin">首页</a>
+            <span class="crumb-step">&gt;</span>
+            <span class="crumb-name">分类管理</span>
+        </div>
+    </div>
+    
+    <!--右侧主操作区-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list"><i class="icon-font"></i>
+                <a href="?m=Admin">首页</a>
+                <span class="crumb-step">&gt;</span>
+                <span class="crumb-name">博文管理</span>
+                <span class="crumb-step">&gt;</span>
+                <span class="crumb-name">添加博文</span>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                <form action="?m=Admin&c=Article&a=addHandle" method="post" id="myform" enctype="multipart/form-data">
+                    <table class="insert-tab" width="100%">
+                        <tbody>
+                            <tr>
+                                <th><i class="require-red">*</i>所属分类：</th>
+                                <td>
+                                   <select name="cid">
+                                       <option value="0">请选择</option>
+                                       {foreach $cate as $val}
+                                       <option {if $val.categoryid == $smarty.get.categoryid}selected="selected" {/if}
+                                       style="padding-left:{$val.lev*15}px" value='{$val.categoryid}'>{$val.name}</option>
+                                        {/foreach}
+                                   </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><i class="require-red">*</i>标题：</th>
+                                <td>
+                                    <input class="common-text required" name="title" size="50" value="" type="text">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><i class="require-red">*</i>发布时间：</th>
+                                <td>
+                                    <input onclick="laydate()" class="common-text required" id="ptime" name="ptime" size="50" value="" type="text">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><i class="require-red">*</i>作者：</th>
+                                <td>
+                                    <input class="common-text required" name="author" size="50" value="admin" type="text">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><i class="require-red">*</i>文件：</th>
+                                <td>
+                                    <input class="common-text required" name="file" type="file">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><i class="require-red">*</i>关键字：</th>
+                                <td>
+                                    <input class="common-text required" name="keywords" size="50" value="" type="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><i class="require-red">*</i>别名：</th>
+                                <td>
+                                    <input class="common-text required" name="alias" size="50" value="" type="text">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><i class="require-red">*</i>点击量：</th>
+                                <td>
+                                    <input class="common-text required" id="hits" name="hits" size="50" value="" type="text">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><i class="require-red">*</i>描述：</th>
+                                <td>
+                                    <textarea name="description" class="common-textarea"  cols="100" rows="5"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><i class="require-red">*</i>内容：</th>
+                                <td>
+                                    <textarea id="con" name="content" class="common-textarea ckeditor" cols="100" rows="20"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+                                    <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+    <!--/右侧主操作区-->
+</div>
+
+<script>
+    CKEDITOR.replace('con',{
+       customConfig:'custom.js',
+        extraPlugins:'codesnippet',//插件名
+        codesnippet_theme:'foundation'
+    });
+</script>
+</body>
+</html>
